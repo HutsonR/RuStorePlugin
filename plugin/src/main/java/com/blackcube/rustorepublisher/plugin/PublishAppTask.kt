@@ -5,9 +5,18 @@ import com.blackcube.rustorepublisher.impl.models.ServicesType
 import com.blackcube.rustorepublisher.network.models.requests.PublishType
 import com.blackcube.rustorepublisher.impl.Result
 import com.blackcube.rustorepublisher.network.provider.RuStoreRetrofitProvider
+import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.options.Option
 import java.io.File
 
-class PublishAppTask { // : DefaultTask()
+abstract class PublishAppTask : DefaultTask() {
+    @get:Internal
+    @set:Option(
+        option = "file",
+        description = "End release time after review in UTC format. The format is."
+    )
     var file: File? = null
     private val projectName = "com.blackcube.starwars"
     private val publisher by lazy {
@@ -15,6 +24,7 @@ class PublishAppTask { // : DefaultTask()
         RuStorePublisherImpl(ruStoreApi)
     }
 
+    @TaskAction
     fun executeTask() {
         try {
             val keyId = getKeyId()

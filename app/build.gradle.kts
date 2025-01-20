@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
-
 android {
     namespace = "com.blackcube.rustoreplugin"
     compileSdk = 35
@@ -41,8 +40,6 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":plugin"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

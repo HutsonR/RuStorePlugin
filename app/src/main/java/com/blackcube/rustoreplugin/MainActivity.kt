@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.blackcube.rustorepublisher.plugin.PublishAppTask
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,16 +26,16 @@ class MainActivity : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.uploadButton)
 
-        val publish = PublishAppTask()
-
-        button.setOnClickListener {
-            lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    publish.file = getApkFileFromAssets(this@MainActivity, "app-release.apk")
-                    publish.executeTask()
-                }
-            }
-        }
+//        val publish = PublishAppTask()
+//
+//        button.setOnClickListener {
+//            lifecycleScope.launch {
+//                withContext(Dispatchers.IO) {
+//                    publish.file = getApkFileFromAssets(this@MainActivity, "app-release.apk")
+//                    publish.executeTask()
+//                }
+//            }
+//        }
     }
 
     fun getApkFileFromAssets(context: Context, fileName: String): File {
