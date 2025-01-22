@@ -11,7 +11,7 @@ The plugin allows publishing Android release build files (`*.apk` and `*.aab`) t
 
 :construction: _This is an unofficial plugin. I made it for internal use and decided to share it with the community._
 
-:exclamation Make sure before using it:
+:exclamation: Make sure before using it:
 1) You have at least 1 published version of the application.
 2) The package matches the version of the application that was published.
 
