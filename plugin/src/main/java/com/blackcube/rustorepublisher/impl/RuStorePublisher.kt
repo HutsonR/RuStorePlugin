@@ -143,4 +143,25 @@ interface RuStorePublisher {
         filePath: File,
         packageName: String
     ): UploadResult
+
+    /**
+     * The method for submitting a draft version of the app for moderation.
+     *
+     * @param token Access token to the Rustore Public API.
+     * @param packageName The name of the application package.
+     * @param versionId Application Version.
+     * @param priorityUpdate Update priority.
+     * Possible values
+     * are From 0 to 5, where 0 is the minimum and 5 is the maximum.
+     * The default value is 0.
+     *
+     * More docs are available
+     * [here](https://www.rustore.ru/help/work-with-rustore-api/api-upload-publication-app/send-draft-app-for-moderation).
+     * */
+    fun submitDraft(
+        token: String,
+        packageName: String,
+        versionId: Int,
+        priorityUpdate: Int?
+    ): UploadResult
 }

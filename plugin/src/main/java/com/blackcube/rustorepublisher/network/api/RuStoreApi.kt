@@ -5,7 +5,7 @@ import com.blackcube.rustorepublisher.network.models.requests.DraftRequest
 import com.blackcube.rustorepublisher.network.models.responses.AppsResponse
 import com.blackcube.rustorepublisher.network.models.responses.AuthResponse
 import com.blackcube.rustorepublisher.network.models.responses.DraftResponse
-import com.blackcube.rustorepublisher.network.models.responses.UploadFileResponse
+import com.blackcube.rustorepublisher.network.models.responses.UploadResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -123,7 +123,7 @@ interface RuStoreApi {
      * • false — by default.
      * @param file The application file is in the form of binary code.
      *
-     * @return [UploadFileResponse]
+     * @return [UploadResponse]
      *
      * More docs are available
      * [here](https://www.rustore.ru/help/work-with-rustore-api/api-upload-publication-app/apk-file-upload/file-upload-apk).
@@ -137,7 +137,7 @@ interface RuStoreApi {
         @Query("servicesType") servicesType: String,
         @Query("isMainApk") isMainApk: Boolean,
         @Part file: MultipartBody.Part
-    ): Call<UploadFileResponse>
+    ): Call<UploadResponse>
 
     /**
      * Api method for upload AAB.
@@ -147,7 +147,7 @@ interface RuStoreApi {
      * @param versionId Application Version.
      * @param file The application file is in the form of binary code.
      *
-     * @return [UploadFileResponse]
+     * @return [UploadResponse]
      *
      * More docs are available
      * [here](https://www.rustore.ru/help/work-with-rustore-api/api-upload-publication-app/apk-file-upload/file-upload-aab).
@@ -159,7 +159,7 @@ interface RuStoreApi {
         @Path("packageName") packageName: String,
         @Path("versionId") versionId: Int,
         @Part file: MultipartBody.Part
-    ): Call<UploadFileResponse>
+    ): Call<UploadResponse>
 
 
 
@@ -170,6 +170,28 @@ interface RuStoreApi {
         @Path("packageName") packageName: String,
         @Path("versionId") versionId: Int,
         @Part file: MultipartBody.Part
-    ): Call<UploadFileResponse>
+    ): Call<UploadResponse>
+
+    /**
+     * Api method for submitting a draft version of the app for moderation.
+     *
+     * @param token Access token to the Rustore Public API.
+     * @param packageName The name of the application package.
+     * @param versionId Application Version.
+     * @param priorityUpdate Update priority.
+     * Possible values
+     * are From 0 to 5, where 0 is the minimum and 5 is the maximum.
+     * The default value is 0.
+     *
+     * More docs are available
+     * [here](https://www.rustore.ru/help/work-with-rustore-api/api-upload-publication-app/send-draft-app-for-moderation).
+     * */
+    @POST("v1/application/{packageName}/version/{versionId}/commit")
+    fun submitDraft(
+        @Header("Public-Token") token: String,
+        @Path("packageName") packageName: String,
+        @Path("versionId") versionId: Int,
+        @Query("priorityUpdate") priorityUpdate: Int?
+    ): Call<UploadResponse>
 
 }

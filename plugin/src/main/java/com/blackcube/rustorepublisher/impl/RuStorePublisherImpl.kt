@@ -265,6 +265,42 @@ internal class RuStorePublisherImpl(
         }
     }
 
+    override fun submitDraft(
+        token: String,
+        packageName: String,
+        versionId: Int,
+        priorityUpdate: Int?
+    ): UploadResult {
+        return try {
+            val response = ruStoreApi.submitDraft(
+                token,
+                packageName,
+                versionId,
+                priorityUpdate
+            ).execute()
+
+            if (response.isSuccessful) {
+                val uploadResponse = response.body()
+
+                if (uploadResponse != null && uploadResponse.code == RESPONSE_SUCCESS_CODE) {
+                    Result.Success(Unit)
+                } else {
+                    Result.Failure(
+                        e = IllegalStateException("API error"),
+                        message = uploadResponse?.message ?: "Unknown error"
+                    )
+                }
+            } else {
+                Result.Failure(
+                    e = HttpException(response),
+                    message = response.errorBody()?.string()
+                )
+            }
+        } catch (e: Exception) {
+            Result.Failure(e)
+        }
+    }
+
     private fun getIdFromMessage(message: String): Int {
         val regex = Regex("ID\\s*=\\s*(\\d+)")
         return message.let {

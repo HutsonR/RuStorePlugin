@@ -9,7 +9,7 @@ package com.blackcube.rustorepublisher.network.models.responses
  * @property timestamp Timestamp of the response in ISO 8601 format.
  * **Example**: `"2022-07-08T13:24:41.8328711+03:00"`
  */
-data class UploadFileResponse(
+data class UploadResponse(
     val code: String,
     val message: String?,
     val timestamp: String,
